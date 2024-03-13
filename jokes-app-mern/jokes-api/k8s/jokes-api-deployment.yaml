@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jokes-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: jokes-api
+
+  template:
+    metadata:
+      labels:
+        name: jokes-api
+    spec:
+      containers:
+        - name: jokes-api-con
+          # image: aqibnawaz/jokes-api
+          image: aqibnawaz/jokes-api:2
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb-cluster-ip-serv/jokesdb"
